@@ -1,10 +1,11 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import * as dotenv from 'dotenv';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
-  dotenv.config();
   const app = await NestFactory.create(AppModule);
-  await app.listen(process.env.NODE_PORT || 3000); // from .env or default
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
+  await app.listen(process.env.NODE_APP_PORT || 3000); // from .env or default
 }
+
 bootstrap();
