@@ -1,30 +1,30 @@
 import { Module } from '@nestjs/common';
-import { UsersService } from './users.service';
-import { UsersController } from './users.controller';
+import { FilmsService } from './films.service';
+import { FilmsController } from './films.controller';
 import { MongooseModule } from '@nestjs/mongoose';
-import { User, UserSchema } from './schemas/user.schema';
+import { Film, FilmSchema } from './schemas/film.schema';
 import { APP_FILTER } from "@nestjs/core";
 import { DuplicateKeyExceptionFilter } from "../exceptions/duplicate-key.filter";
-import { UsersRepository } from "./users.repository";
+import { FilmsRepository } from "./films.repository";
 
 @Module({
   imports: [
     MongooseModule.forFeature([
       {
-        name: User.name,
-        schema: UserSchema,
+        name: Film.name,
+        schema: FilmSchema,
       },
     ]),
   ],
-  controllers: [UsersController],
+  controllers: [FilmsController],
   providers: [
-    UsersService,
-      UsersRepository,
+    FilmsService,
+    FilmsRepository,
     {
       provide: APP_FILTER,
       useClass: DuplicateKeyExceptionFilter,
     },
   ],
-  exports: [UsersService],
+  exports: [FilmsService],
 })
-export class UsersModule {}
+export class FilmsModule {}

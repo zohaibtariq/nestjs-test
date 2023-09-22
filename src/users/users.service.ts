@@ -1,44 +1,44 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { User, UserDocument } from './schemas/user.schema';
+import { ObjectId} from 'mongoose';
+import { UserDocument } from './schemas/user.schema';
 import * as bcrypt from 'bcrypt';
+import { UsersRepository } from "./users.repository";
 
 @Injectable()
 export class UsersService {
 
   constructor(
-      @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
+      private readonly usersRepository: UsersRepository
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<UserDocument> {
-    const encPass = await bcrypt.hash(createUserDto.password, 10);
-    const payload = {
-      username: createUserDto.username.toLowerCase(),
-      password: encPass,
-    };
-    const createdUser = new this.userModel(payload);
-    return createdUser.save();
+    return this.usersRepository.create(createUserDto);
   }
 
   async findAll(): Promise<UserDocument[]> {
-    return this.userModel.find();
+    return this.usersRepository.find({}, {password: 0});
   }
 
-  findOne(id: string) {
-    return this.userModel.findById(id);
+  findOne(id: ObjectId) {
+    return this.usersRepository.findById(id, {password: 0});
   }
 
   async update(
-      id: string,
-      UpdateUserDto: UpdateUserDto,
+      id: ObjectId,
+      updateUserDto: UpdateUserDto,
   ): Promise<UserDocument> {
-    return this.userModel.findByIdAndUpdate(id, UpdateUserDto);
+    let obj = {...updateUserDto};
+    if(updateUserDto.password){
+      const hashedPass = await bcrypt.hash(updateUserDto.password, 10)
+      obj = {...obj, "password": hashedPass}
+    }
+    return this.usersRepository.findByIdAndUpdate(id, obj, {new: true});
   }
 
-  async remove(id: string) {
-    return this.userModel.findByIdAndRemove(id);
+  async remove(id: ObjectId) {
+    return this.usersRepository.findByIdAndRemove(id);
   }
+
 }

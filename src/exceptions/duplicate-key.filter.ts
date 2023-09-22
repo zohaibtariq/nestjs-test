@@ -1,4 +1,3 @@
-// src/exceptions/duplicate-key.filter.ts
 import { Catch, ExceptionFilter, ArgumentsHost } from '@nestjs/common';
 import { MongoError } from 'mongodb';
 
@@ -8,16 +7,14 @@ export class DuplicateKeyExceptionFilter implements ExceptionFilter {
         const response = host.switchToHttp().getResponse();
         const statusCode = 400; // Bad Request
         const error = "Bad Request";
-        if (exception.code === 11000) {
-            // Duplicate key error (code 11000)
+        if (exception.code === 11000) { // Duplicate key error (code 11000)
+            const CustomError:any = {...exception};
             response.status(statusCode).json({
-                message: ['it is already taken'],
-                // message: ['Duplicate key error. This value is already in use.'],
+                message: [`${Object.keys(CustomError?.keyValue)[0]} value must be unique`],
                 error,
                 statusCode
             });
         } else {
-            // Other MongoDB errors
             response.status(statusCode).json({
                 message: ['An error occurred.'],
                 error,

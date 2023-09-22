@@ -1,4 +1,4 @@
-import {IsInt, IsString, validateSync} from 'class-validator';
+import { IsInt, IsString, validateSync } from 'class-validator';
 import { plainToClass } from 'class-transformer';
 
 class EnvironmentVariables {
@@ -6,14 +6,14 @@ class EnvironmentVariables {
     @IsString({ message: 'Invalid MONGODB_URI' })
     MONGODB_URI: string;
 
-    // @IsString({ message: 'Invalid TEST_MONGODB_URI' })
-    // TEST_MONGODB_URI: string;
+    @IsString({ message: 'Invalid MONGODB_TEST_URI' })
+    MONGODB_TEST_URI: string;
 
     @IsString({ message: 'Invalid ELASTICSEARCH_NODE' })
     ELASTICSEARCH_NODE: string;
 
-    // @IsString({ message: 'Invalid SECRET_KEY' })
-    // SECRET_KEY: string;
+    @IsString({ message: 'Invalid SECRET_KEY' })
+    SECRET_KEY: string;
 
     @IsInt({ message: 'Invalid NODE_APP_PORT' })
     NODE_APP_PORT: number;
