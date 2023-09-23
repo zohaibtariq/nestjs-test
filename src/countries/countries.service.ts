@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCountryDto } from './dto/create-country.dto';
 import { UpdateCountryDto } from './dto/update-country.dto';
-import { ObjectId} from 'mongoose';
+import {ObjectId, Types} from 'mongoose';
 import { CountryDocument } from './schemas/country.schema';
 import { CountriesRepository } from "./countries.repository";
 
@@ -20,18 +20,18 @@ export class CountriesService {
     return this.countriesRepository.find({}, {__v: 0});
   }
 
-  findOne(id: ObjectId) {
+  findOne(id: Types.ObjectId) {
     return this.countriesRepository.findById(id, {__v: 0});
   }
 
   async update(
-      id: ObjectId,
+      id: Types.ObjectId,
       updateCountryDto: UpdateCountryDto,
   ): Promise<CountryDocument> {
     return this.countriesRepository.findByIdAndUpdate(id, updateCountryDto, {new: true});
   }
 
-  async remove(id: ObjectId) {
+  async remove(id: Types.ObjectId) {
     return this.countriesRepository.findByIdAndRemove(id);
   }
 

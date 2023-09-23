@@ -8,6 +8,7 @@ import { validate } from './environment.validation';
 import { FilmsModule } from './films/films.module';
 import { CountriesModule } from './countries/countries.module';
 import { DatabaseModule } from "./database/database.module";
+import { AuthModule } from "./auth/auth.module";
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { DatabaseModule } from "./database/database.module";
       envFilePath: '.env', // since we have .env
     }),
     MongooseModule.forRoot(process.env.MONGODB_URI),
+    AuthModule,
     UsersModule,
     // MigrationModule,
     // SeederModule,

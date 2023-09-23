@@ -1,14 +1,12 @@
 import { Injectable } from '@nestjs/common';
+import { ObjectId, Types } from 'mongoose';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { ObjectId} from 'mongoose';
 import { UserDocument } from './schemas/user.schema';
-import * as bcrypt from 'bcrypt';
 import { UsersRepository } from "./users.repository";
 
 @Injectable()
 export class UsersService {
-
   constructor(
       private readonly usersRepository: UsersRepository
   ) {}
@@ -17,28 +15,27 @@ export class UsersService {
     return this.usersRepository.create(createUserDto);
   }
 
-  async findAll(): Promise<UserDocument[]> {
-    return this.usersRepository.find({}, {password: 0});
+  async findAll(filter = {}, projection = {}): Promise<UserDocument[]> {
+    return this.usersRepository.find(filter, projection);
   }
 
-  findOne(id: ObjectId) {
-    return this.usersRepository.findById(id, {password: 0});
+  async findById(id: Types.ObjectId, projection = {}): Promise<UserDocument> {
+    return this.usersRepository.findById(id, projection);
+  }
+
+  async findByUsername(username: string): Promise<UserDocument> {
+    return this.usersRepository.findOne({ username });
   }
 
   async update(
-      id: ObjectId,
-      updateUserDto: UpdateUserDto,
+    id: Types.ObjectId,
+    updateUserDto: UpdateUserDto,
+    options = {}
   ): Promise<UserDocument> {
-    let obj = {...updateUserDto};
-    if(updateUserDto.password){
-      const hashedPass = await bcrypt.hash(updateUserDto.password, 10)
-      obj = {...obj, "password": hashedPass}
-    }
-    return this.usersRepository.findByIdAndUpdate(id, obj, {new: true});
+    return this.usersRepository.findByIdAndUpdate(id, updateUserDto, options);
   }
 
-  async remove(id: ObjectId) {
-    return this.usersRepository.findByIdAndRemove(id);
+  async remove(id: ObjectId): Promise<UserDocument> {
+    return this.usersRepository.findByIdAndDelete(id);
   }
-
 }

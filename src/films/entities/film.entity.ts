@@ -1,4 +1,4 @@
-export class Film {
+export class FilmEntity {
     name: string;
     description: string;
     releaseDate: Date;

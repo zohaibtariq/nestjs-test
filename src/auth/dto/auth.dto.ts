@@ -2,12 +2,7 @@ import {
   IsNotEmpty,
   IsString,
 } from 'class-validator';
-
-export class CreateUserDto {
-
-  @IsNotEmpty()
-  @IsString()
-  name: string;
+export class AuthDto {
 
   @IsNotEmpty()
   @IsString()
@@ -17,5 +12,4 @@ export class CreateUserDto {
   @IsString()
   password: string;
 
-  refreshToken?: string;
 }

@@ -1,33 +1,36 @@
-import { Controller, Get, Post, Body, Patch, Put, Param, Delete, UseFilters } from '@nestjs/common';
-import { UsersService } from './users.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { DuplicateKeyExceptionFilter } from '../exceptions/duplicate-key.filter';
-import { ObjectId } from "mongoose";
+import {
+  Controller,
+  Get,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 
+import { UsersService } from './users.service';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { AccessTokenGuard } from 'src/common/guards/accessToken.guard';
+import { ObjectId, Types } from "mongoose";
+
+@UseGuards(AccessTokenGuard)
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Post()
-  @UseFilters(DuplicateKeyExceptionFilter)
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
-  }
-
   @Get()
   findAll() {
-    return this.usersService.findAll();
+    return this.usersService.findAll({}, {refreshToken: 0, password: 0});
   }
 
   @Get(':id')
-  findOne(@Param('id') id: ObjectId) {
-    return this.usersService.findOne(id);
+  findById(@Param('id') id: Types.ObjectId) {
+    return this.usersService.findById(id, {refreshToken: 0, password: 0});
   }
 
   @Patch(':id')
-  update(@Param('id') id: ObjectId, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(id, updateUserDto);
+  update(@Param('id') id: Types.ObjectId, @Body() updateUserDto: UpdateUserDto) {
+    return this.usersService.update(id, updateUserDto, { new: true });
   }
 
   @Delete(':id')

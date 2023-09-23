@@ -1,4 +1,4 @@
-import { Document, FilterQuery, Model, ObjectId, UpdateQuery } from "mongoose";
+import { Document, FilterQuery, Model, ObjectId, PipelineStage, Types, UpdateQuery } from "mongoose";
 
 export abstract class EntityRepository<T extends Document> {
 
@@ -15,19 +15,19 @@ export abstract class EntityRepository<T extends Document> {
     }
 
     async find(
-        entityFilterQuery: FilterQuery<T>,
+        entityFilterQuery: FilterQuery<T> = {},
         projection: Record<string, unknown> = {}
     ): Promise<T[] | null>{
         return this.entityModel.find(entityFilterQuery, {
             __v: 0,
             ...projection
-        })
+        }).exec()
     }
 
     async findById(
-        _id: ObjectId,
+        _id: Types.ObjectId,
         projection: Record<string, unknown> = {}
-    ): Promise<T[] | null>{
+    ): Promise<T | null>{
         return this.entityModel.findById(_id, {
             __v: 0,
             ...projection
@@ -36,8 +36,9 @@ export abstract class EntityRepository<T extends Document> {
 
     async create(
         createEntityData: unknown
-    ): Promise<T> {
-        return this.entityModel.create(createEntityData)
+    ): Promise<any> {
+        const createdUser = new this.entityModel(createEntityData)
+        return createdUser.save();
     }
 
     async findOneAndUpdate(
@@ -49,11 +50,17 @@ export abstract class EntityRepository<T extends Document> {
     }
 
     async findByIdAndUpdate(
-        id: ObjectId,
+        id: Types.ObjectId,
         updateEntityData: UpdateQuery<unknown>,
         options: Record<string, unknown> = {}
     ): Promise<T|null> {
         return this.entityModel.findByIdAndUpdate(id, updateEntityData, options)
+    }
+
+    async findByIdAndDelete(
+        id: ObjectId,
+    ): Promise<T|null> {
+        return this.entityModel.findByIdAndDelete(id).exec()
     }
 
     async deleteMany(
@@ -64,7 +71,7 @@ export abstract class EntityRepository<T extends Document> {
     }
 
     async findByIdAndRemove(
-        id: ObjectId,
+        id: Types.ObjectId,
     ): Promise<boolean> {
         return this.entityModel.findByIdAndRemove(id);
     }
@@ -75,4 +82,35 @@ export abstract class EntityRepository<T extends Document> {
         return this.entityModel.insertMany(data)
     }
 
+    async aggregate(aggregationPipeline: PipelineStage[]): Promise<any[]> {
+        return this.entityModel.aggregate(aggregationPipeline).exec();
+    }
+
+    async findOneWithSelect(
+        entityFilterQuery: FilterQuery<T>,
+        selectFields: string | string[] | Record<string, number | boolean | object> = {},
+        projection: Record<string, unknown> = {}
+    ): Promise<T | null> {
+        return this.entityModel
+            .findOne(entityFilterQuery, {
+                __v: 0,
+                ...projection,
+            })
+            .select(selectFields)
+            .exec();
+    }
+
+    async findWithSelect(
+        entityFilterQuery: FilterQuery<T> = {},
+        selectFields: string | string[] | Record<string, number | boolean | object> = {},
+        projection: Record<string, unknown> = {}
+    ): Promise<T[] | null> {
+        return this.entityModel
+            .find(entityFilterQuery, {
+                __v: 0,
+                ...projection,
+            })
+            .select(selectFields)
+            .exec();
+    }
 }

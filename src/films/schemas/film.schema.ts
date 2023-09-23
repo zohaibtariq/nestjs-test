@@ -24,6 +24,11 @@ export class Film {
     @Prop({ required: true })
     genre: string[];
 
+    // TODO:: there are two approaches we can use here one is to boost film initially assign max rating 5 and as rating
+    //  arrives replace or update its avg rating, 2nd is more neutral to assign 0 and update on new rating we mix these
+    @Prop({ required: false, default: 5, min: 1, max: 5 })
+    rating: number;
+
 }
 
 export const FilmSchema = SchemaFactory.createForClass(Film);

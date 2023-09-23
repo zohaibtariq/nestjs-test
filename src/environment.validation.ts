@@ -3,6 +3,12 @@ import { plainToClass } from 'class-transformer';
 
 class EnvironmentVariables {
 
+    @IsString({ message: 'Invalid APP_ENV' })
+    APP_ENV: string;
+
+    @IsInt({ message: 'Invalid NODE_APP_PORT' })
+    NODE_APP_PORT: number;
+
     @IsString({ message: 'Invalid MONGODB_URI' })
     MONGODB_URI: string;
 
@@ -12,11 +18,17 @@ class EnvironmentVariables {
     @IsString({ message: 'Invalid ELASTICSEARCH_NODE' })
     ELASTICSEARCH_NODE: string;
 
-    @IsString({ message: 'Invalid SECRET_KEY' })
-    SECRET_KEY: string;
+    @IsString({ message: 'Invalid JWT_ACCESS_SECRET' })
+    JWT_ACCESS_SECRET: string;
 
-    @IsInt({ message: 'Invalid NODE_APP_PORT' })
-    NODE_APP_PORT: number;
+    @IsString({ message: 'Invalid JWT_REFRESH_SECRET' })
+    JWT_REFRESH_SECRET: string;
+
+    @IsString({ message: 'Invalid JWT_ACCESS_TOKEN_EXPIRES_IN' })
+    JWT_ACCESS_TOKEN_EXPIRES_IN: string;
+
+    @IsString({ message: 'Invalid JWT_REFRESH_TOKEN_EXPIRES_IN' })
+    JWT_REFRESH_TOKEN_EXPIRES_IN: string;
 }
 
 export const validate = (config: Record<string, unknown>) => {

@@ -23,3 +23,9 @@ docker logs -f nestjs
 ```bash
 cd src && nest g resource
 ```
+
+###### GENERATE TOKENS
+
+```bash
+node -e "console.log(require('crypto').randomBytes(256).toString('base64'));"
+```

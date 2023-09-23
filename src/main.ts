@@ -4,8 +4,10 @@ import { ValidationPipe } from '@nestjs/common';
 import { DatabaseSeeder } from "./database/database.seeder";
 
 async function bootstrap() {
+
   const app = await NestFactory.create(AppModule);
-  app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
+
+  app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true }));
   await app.listen(process.env.NODE_APP_PORT || 3000); // from .env or default
 
   const databaseSeeder = app.get(DatabaseSeeder); // TODO:: Time shortage fired here

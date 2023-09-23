@@ -6,6 +6,9 @@ import { Film, FilmSchema } from './schemas/film.schema';
 import { APP_FILTER } from "@nestjs/core";
 import { DuplicateKeyExceptionFilter } from "../exceptions/duplicate-key.filter";
 import { FilmsRepository } from "./films.repository";
+import { AuthModule } from "../auth/auth.module";
+import { FilmsRatingRepository } from "./films-rating.repository";
+import { FilmRating, FilmRatingSchema } from "./schemas/film-rating.schema";
 
 @Module({
   imports: [
@@ -14,12 +17,18 @@ import { FilmsRepository } from "./films.repository";
         name: Film.name,
         schema: FilmSchema,
       },
+      {
+        name: FilmRating.name,
+        schema: FilmRatingSchema,
+      },
     ]),
+    AuthModule
   ],
   controllers: [FilmsController],
   providers: [
     FilmsService,
     FilmsRepository,
+    FilmsRatingRepository,
     {
       provide: APP_FILTER,
       useClass: DuplicateKeyExceptionFilter,
