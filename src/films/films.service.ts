@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, OnModuleInit } from '@nestjs/common';
 import { CreateFilmDto } from './dto/create-film.dto';
 import { UpdateFilmDto } from './dto/update-film.dto';
 import { Types } from 'mongoose';
@@ -6,17 +6,30 @@ import { FilmDocument } from './schemas/film.schema';
 import { FilmsRepository } from "./films.repository";
 import { CreateFilmRatingDto } from "./dto/create-film-rating.dto";
 import { FilmsRatingRepository } from "./films-rating.repository";
+import { SearchService } from "../search/search.service";
+import { ConfigService } from "@nestjs/config";
+import FilmsIndex from "./utils/FilmsIndex";
 
 @Injectable()
-export class FilmsService {
+export class FilmsService implements OnModuleInit {
 
   constructor(
       private readonly filmsRepository: FilmsRepository,
       private readonly filmsRatingRepository: FilmsRatingRepository,
+      private readonly searchService: SearchService,
+      private readonly configService: ConfigService,
   ) {}
 
+  async onModuleInit() {
+    // IMPORTANT: execute once when app boots and create required index which is films in our case
+    await this.searchService.createIndex({...FilmsIndex, index: this.configService.get('ELASTIC_SEARCH_INDEX')})
+  }
+
   async create(createFilmDto: CreateFilmDto): Promise<FilmDocument> {
-    return this.filmsRepository.create(createFilmDto);
+    const filmDoc = await this.filmsRepository.create(createFilmDto);
+    // IMPORTANT: film create sync with search engine
+    await this.searchService.createDocument(this.configService.get('ELASTIC_SEARCH_INDEX'), filmDoc.id, filmDoc)
+    return filmDoc;
   }
 
   async findAll(): Promise<FilmDocument[]> {
@@ -31,11 +44,17 @@ export class FilmsService {
       id: Types.ObjectId,
       updateFilmDto: UpdateFilmDto,
   ): Promise<FilmDocument> {
-    return this.filmsRepository.findByIdAndUpdate(id, updateFilmDto, {new: true});
+    const filmDoc = await this.filmsRepository.findByIdAndUpdate(id, updateFilmDto, {new: true});
+    // IMPORTANT: film update sync with search engine
+    await this.searchService.updateDocument(this.configService.get('ELASTIC_SEARCH_INDEX'), filmDoc.id, filmDoc)
+    return filmDoc;
   }
 
   async remove(id: Types.ObjectId) {
-    return this.filmsRepository.findByIdAndRemove(id);
+    const filmDoc = await this.filmsRepository.findByIdAndRemove(id);
+    // IMPORTANT: film delete sync with search engine
+    await this.searchService.deleteDocument(this.configService.get('ELASTIC_SEARCH_INDEX'), id.toString())
+    return filmDoc;
   }
 
   async rating(filmId: Types.ObjectId, userId: Types.ObjectId, filmRatingData: CreateFilmRatingDto) {
@@ -46,12 +65,13 @@ export class FilmsService {
     await this.filmsRatingRepository.findOneAndUpdate({ filmId: filmId, userId: userId },{
       ...filmRatingData, filmId, userId }, { upsert: true, new: true })
 
+    // IMPORTANT: this cane be done by two ways mentioned both used one
     let averageRating = await this.getAverageFilmRatingAggregate(filmId) // Aggregate Approach
     // let averageRating = await this.getAverageFilmRating(filmId, 'rating') // Model Approach
 
-    const updated = await this.filmsRepository.findByIdAndUpdate(filmId, {rating: averageRating}, {new: true});
-
-    return updated;
+    const filmDoc = await this.filmsRepository.findByIdAndUpdate(filmId, {rating: averageRating}, {new: true});
+    await this.searchService.updateDocument(this.configService.get('ELASTIC_SEARCH_INDEX'), filmDoc.id, filmDoc)
+    return filmDoc;
   }
 
   async getAverageFilmRatingAggregate(filmId: Types.ObjectId): Promise<Number> {

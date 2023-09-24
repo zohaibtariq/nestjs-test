@@ -49,9 +49,10 @@ describe("UsersController", () => {
     expect(controller).toBeDefined();
   });
 
-  it("should return the saved object", async () => {
-    const createdUser = await controller.create(UserDTOStub());
-    expect(createdUser.username).toBe(UserDTOStub().username);
-  });
+  // TODO:: will cover it from auth controller/service as part of signup
+  // it("should return the saved object", async () => {
+  //   const createdUser = await controller.create(UserDTOStub());
+  //   expect(createdUser.username).toBe(UserDTOStub().username);
+  // });
 
 });

@@ -10,8 +10,8 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true }));
   await app.listen(process.env.NODE_APP_PORT || 3000); // from .env or default
 
-  const databaseSeeder = app.get(DatabaseSeeder); // TODO:: Time shortage fired here
-  await databaseSeeder.seedCountries(); // TODO:: it should be fire externally via some command not here
+  const databaseSeeder = app.get(DatabaseSeeder);
+  await databaseSeeder.seedCountries();
 
 }
 

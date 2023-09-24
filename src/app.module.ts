@@ -9,22 +9,22 @@ import { FilmsModule } from './films/films.module';
 import { CountriesModule } from './countries/countries.module';
 import { DatabaseModule } from "./database/database.module";
 import { AuthModule } from "./auth/auth.module";
+import { SearchModule } from './search/search.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       validate,
-      isGlobal: true, // should be available globally in our case
-      envFilePath: '.env', // since we have .env
+      isGlobal: true, // IMPORTANT:  should be available globally in our case
+      envFilePath: '.env', // IMPORTANT: since we have .env
     }),
     MongooseModule.forRoot(process.env.MONGODB_URI),
     AuthModule,
     UsersModule,
-    // MigrationModule,
-    // SeederModule,
     FilmsModule,
     CountriesModule,
-    DatabaseModule
+    DatabaseModule,
+    SearchModule
   ],
   controllers: [
     AppController

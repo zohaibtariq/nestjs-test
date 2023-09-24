@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 services:
   mongodb:
     container_name: mongo
@@ -7,22 +7,31 @@ services:
     ports:
       - '27017:27017'
     volumes:
-      - mongodb_data:/data/db
+      - mongodata:/data/db
   elasticsearch:
     container_name: elasticsearch
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.10.1
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.10.2
     restart: unless-stopped
     ports:
-      - '9200:9200'
+      - "9200:9200"
+      - "9300:9300"
     environment:
       - discovery.type=single-node
+      - node.name=single-node
+      - ES_JAVA_OPTS=-Xmx256m -Xms256m
+      - xpack.security.enabled=false
     volumes:
-      - elasticsearch_data:/usr/share/elasticsearch/data
+      - esdata:/usr/share/elasticsearch/data
+    command: >
+      elasticsearch
+      -E xpack.security.enabled=false
   nestjs:
     container_name: nestjs
     build:
       context: .
       dockerfile: Dockerfile
+    volumes:
+      - .:/app
     restart: unless-stopped
     ports:
       - '3000:3000'
@@ -30,5 +39,5 @@ services:
       - mongodb
       - elasticsearch
 volumes:
-  mongodb_data:
-  elasticsearch_data:
+  mongodata:
+  esdata:

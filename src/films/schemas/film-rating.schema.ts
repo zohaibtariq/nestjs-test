@@ -14,10 +14,10 @@ export class FilmRating {
     @Prop({ required: true })
     comment: string;
 
-    @Prop({ required: true, type: MongooseSchema.Types.ObjectId, ref: User.name})
+    @Prop({ required: true, type: MongooseSchema.Types.ObjectId, ref: User.name, index: true})
     userId: MongooseSchema.Types.ObjectId;
 
-    @Prop({ required: true, type: MongooseSchema.Types.ObjectId, ref: Film.name})
+    @Prop({ required: true, type: MongooseSchema.Types.ObjectId, ref: Film.name, index: true})
     filmId: MongooseSchema.Types.ObjectId;
 
     @Prop({ required: true })

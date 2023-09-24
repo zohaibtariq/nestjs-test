@@ -1,6 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-// import * as bcrypt from 'bcrypt';
 
 export type UserDocument = User & Document;
 
@@ -24,6 +23,8 @@ export class User {
 }
 
 const UserSchema = SchemaFactory.createForClass(User);
+
+// IMPORTANT: we can make use of these hooks as well for hashing as well.
 
 // UserSchema.pre('findOneAndUpdate', async function(next: Function) {
 //     // const user = await this.model.findOne(this.getQuery());

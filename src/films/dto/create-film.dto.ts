@@ -18,7 +18,7 @@ export class CreateFilmDto {
     @IsNumber()
     readonly ticketPrice: number;
 
-    // @Prop({ type: [{ type: Schema.Types.ObjectId, ref: 'Country' }] })
+    // @Prop({ type: [{ type: Schema.Types.ObjectId, ref: 'Country' }] }) // skip due to shortage of time
     // country_id: Country[]; // Reference to the Country model
 
     @IsNotEmpty()
@@ -26,7 +26,7 @@ export class CreateFilmDto {
     @IsString({ each: true })
     genre: string[];
 
-    // @IsNotEmpty()
+    // @IsNotEmpty()  // skip due to shortage of time
     // @FileInterceptor('photo')
     // photo: Multer.File;
 

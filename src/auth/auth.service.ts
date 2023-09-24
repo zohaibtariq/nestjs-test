@@ -20,14 +20,14 @@ export class AuthService {
     private configService: ConfigService,
   ) {}
   async signUp(createUserDto: CreateUserDto): Promise<any> {
-    // Check if user exists
+    // IMPORTANT: Check if user exists
     const userExists = await this.usersService.findByUsername(
       createUserDto.username,
     );
     if (userExists) {
       throw new BadRequestException('User already exists');
     }
-    // Hash password
+    // IMPORTANT: Hash password
     const hash = await this.hashData(createUserDto.password);
     const newUser = await this.usersService.create({
       ...createUserDto,
@@ -41,7 +41,7 @@ export class AuthService {
   }
 
   async signIn(data: AuthDto) {
-    // Check if user exists
+    // IMPORTANT: Check if user exists
     const user = await this.usersService.findByUsername(data.username);
     if (!user) throw new BadRequestException('User does not exist');
     const passwordMatches = await argon2.verify(user.password, data.password);

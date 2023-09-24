@@ -12,11 +12,23 @@ class EnvironmentVariables {
     @IsString({ message: 'Invalid MONGODB_URI' })
     MONGODB_URI: string;
 
-    @IsString({ message: 'Invalid MONGODB_TEST_URI' })
-    MONGODB_TEST_URI: string;
+    // @IsString({ message: 'Invalid ELASTIC_SEARCH_USERNAME' })
+    // ELASTIC_SEARCH_USERNAME: string;
 
-    @IsString({ message: 'Invalid ELASTICSEARCH_NODE' })
-    ELASTICSEARCH_NODE: string;
+    // @IsString({ message: 'Invalid ELASTIC_PASSWORD' })
+    // ELASTIC_PASSWORD: string;
+
+    @IsString({ message: 'Invalid ELASTIC_SEARCH_HOST' })
+    ELASTIC_SEARCH_HOST: string;
+
+    @IsInt({ message: 'Invalid ELASTIC_SEARCH_PORT' })
+    ELASTIC_SEARCH_PORT: number;
+
+    @IsInt({ message: 'Invalid ELASTIC_SEARCH_MAX_RETRIES' })
+    ELASTIC_SEARCH_MAX_RETRIES: number;
+
+    @IsInt({ message: 'Invalid ELASTIC_SEARCH_REQ_TIMEOUT' })
+    ELASTIC_SEARCH_REQ_TIMEOUT: number;
 
     @IsString({ message: 'Invalid JWT_ACCESS_SECRET' })
     JWT_ACCESS_SECRET: string;
@@ -29,11 +41,14 @@ class EnvironmentVariables {
 
     @IsString({ message: 'Invalid JWT_REFRESH_TOKEN_EXPIRES_IN' })
     JWT_REFRESH_TOKEN_EXPIRES_IN: string;
+
+    @IsString({ message: 'Invalid ELASTIC_SEARCH_INDEX' })
+    ELASTIC_SEARCH_INDEX: string;
 }
 
 export const validate = (config: Record<string, unknown>) => {
 
-    // `plainToClass` to converts plain object into Class
+    // IMPORTANT: `plainToClass` to converts plain object into Class
     const validatedConfig = plainToClass(EnvironmentVariables, config, {
         enableImplicitConversion: true,
     });

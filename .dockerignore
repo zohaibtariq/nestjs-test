@@ -2,3 +2,8 @@
 /dist
 /node_modules
 Dockerfile
+node_modules
+dist
+coverage
+mongo_data
+es_data
