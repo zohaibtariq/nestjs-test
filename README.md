@@ -77,6 +77,10 @@ $ npm run test:cov
 - Author - [Zohaib Tariq](https://www.linkedin.com/in/zohaib-tariq/)
 - Website - [https://www.linkedin.com/in/zohaib-tariq/](https://www.linkedin.com/in/zohaib-tariq/)
 
+## Credits
+
+- [Zohaib Tariq](https://github.com/zohaibtariq)
+
 ## License
 
-It is [MIT licensed](LICENSE).
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
