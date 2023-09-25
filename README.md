@@ -31,52 +31,35 @@ This command must show nest
 ```bash
 docker ps
 ```
+at that time you mongodba and elasticsearch container must executed with success
 
-you can execute any command inside docker container from outside use below command and pass commands at end
-
-docker exec -it CONTAINER_NAME_OR_ID bash -c "npm install ; npm test ; "
-
-```bash
-docker exec -it nestjs sh -c "npm install ; npm run test:e2e ; "
-```
-
-#### You also can execute below commands but it will serve from your local setup not from docker (not recommended)
+#### Run Nest JS (Locally)
 
 ```bash
 npm install
 ```
 
+```bash
+npm run start
+```
+OR
+```bash
+npm run start:dev
+```
+check tests
+```bash
+npm run test:e2e
+```
+```bash
+npm run test
+```
+
+##### .env file and some images with task detail has been shared over email, while postman collection is attached below.
 
 ## Postman Collection
 
-
 ****[POSTMAN COLLECTION FILE (Avrioc.postman_collection.json)](https://github.com/zohaibtariq/swapi.dev/blob/development/Avrioc.postman_collection.json)****
 
-## Running the app
-
-```bash
-# development
-npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
 
 ## Stay in touch
 
