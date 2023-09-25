@@ -9,8 +9,8 @@ import { FilmsRepository } from "./films.repository";
 import { AuthModule } from "../auth/auth.module";
 import { FilmsRatingRepository } from "./films-rating.repository";
 import { FilmRating, FilmRatingSchema } from "./schemas/film-rating.schema";
-import {SearchModule} from "../search/search.module";
-import {SearchService} from "../search/search.service";
+import { SearchModule } from "../search/search.module";
+import { SearchService } from "../search/search.service";
 
 @Module({
   imports: [

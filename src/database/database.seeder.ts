@@ -4,6 +4,7 @@ import { CountriesRepository } from '../countries/countries.repository';
 
 @Injectable()
 export class DatabaseSeeder {
+  // IMPORTANT:  seeding of database can be done in many ways
   constructor(private readonly countriesRepository: CountriesRepository) {}
 
     async seedCountries() {

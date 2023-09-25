@@ -1,17 +1,7 @@
 import { ConfigService } from '@nestjs/config';
 import { Injectable } from '@nestjs/common';
 import { ElasticsearchService } from '@nestjs/elasticsearch';
-
-type dataResponse = {
-  UnitPrice: number;
-  Description: string;
-  Quantity: number;
-  Country: string;
-  InvoiceNo: string;
-  InvoiceDate: Date;
-  CustomerID: number;
-  StockCode: string;
-};
+import FilmsIndex from "../films/utils/FilmsIndex";
 
 @Injectable()
 export class SearchService {
@@ -50,6 +40,11 @@ export class SearchService {
 
   async search(index: string, searchQuery: any) { // IMPORTANT: responsible for performing search over search engine at defined index
     try {
+      if(!index || !await this.isIndexExists(index)){
+        // IMPORTANT we should throw exception here if search is called without creating index but for now we will create it
+        await this.createIndex({...FilmsIndex, index: this.configService.get('ELASTIC_SEARCH_INDEX')})
+
+      }
       let results = new Set();
       const response = await this.esService.search(
           {

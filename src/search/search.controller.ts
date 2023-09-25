@@ -27,7 +27,7 @@ export class SearchController {
     }
   }
 
-  @Get('search')
+  @Post()
   async search(@Body() requestBody: { index: string; query: any }) { // IMPORTANT: responsible for performing search in elastic search
     const { index, query } = requestBody;
     return await this.searchService.search(index, query);

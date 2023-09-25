@@ -30,15 +30,12 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-#    volumes:
-#      - .:/app
     restart: unless-stopped
     ports:
       - '3000:3000'
     depends_on:
       - mongodb
       - elasticsearch
-#    command: ["./wait-for-elasticsearch.sh", "npm", "run", "start"]
 
 volumes:
   mongodata:

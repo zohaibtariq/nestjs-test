@@ -10,7 +10,7 @@ import {
 
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { AccessTokenGuard } from 'src/common/guards/accessToken.guard';
+import { AccessTokenGuard } from './../common/guards/accessToken.guard';
 import { ObjectId, Types } from "mongoose";
 
 @UseGuards(AccessTokenGuard)

@@ -24,6 +24,6 @@ import {ConfigModule, ConfigService} from "@nestjs/config";
   ],
   controllers: [SearchController],
   providers: [SearchService],
-  exports: [ElasticsearchModule]
+  exports: [ElasticsearchModule, SearchService]
 })
 export class SearchModule {}

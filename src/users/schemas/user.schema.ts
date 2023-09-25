@@ -24,20 +24,4 @@ export class User {
 
 const UserSchema = SchemaFactory.createForClass(User);
 
-// IMPORTANT: we can make use of these hooks as well for hashing as well.
-
-// UserSchema.pre('findOneAndUpdate', async function(next: Function) {
-//     // const user = await this.model.findOne(this.getQuery());
-//     const updatedUser:any = this
-//     const updateBody = updatedUser._update
-//     if(updateBody.password)
-//         updateBody.password = await bcrypt.hash(updateBody.password, 10);
-// });
-
-// UserSchema.pre<User>(['save', /*'findOneAndUpdate', 'updateOne'*/], async function (next: Function) {
-//     const user = this;
-//     if (user.password)
-//         user.password = await bcrypt.hash(user.password, 10);
-// });
-
 export { UserSchema }

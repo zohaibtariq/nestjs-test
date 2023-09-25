@@ -3,14 +3,17 @@ import { plainToClass } from 'class-transformer';
 
 class EnvironmentVariables {
 
-    @IsString({ message: 'Invalid APP_ENV' })
-    APP_ENV: string;
+    @IsString({ message: 'Invalid NODE_ENV' })
+    NODE_ENV: string;
 
     @IsInt({ message: 'Invalid NODE_APP_PORT' })
     NODE_APP_PORT: number;
 
     @IsString({ message: 'Invalid MONGODB_URI' })
     MONGODB_URI: string;
+
+    @IsString({ message: 'Invalid MONGODB_TEST_URI' })
+    MONGODB_TEST_URI: string;
 
     // @IsString({ message: 'Invalid ELASTIC_SEARCH_USERNAME' })
     // ELASTIC_SEARCH_USERNAME: string;

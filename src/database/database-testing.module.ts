@@ -1,15 +1,20 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { MongoMemoryServer } from "mongodb-memory-server";
 import { DatabaseSeeder } from "./database.seeder";
 import { CountriesModule } from "../countries/countries.module";
-import { ConfigService } from "@nestjs/config";
 
 @Module({
     imports: [
         MongooseModule.forRootAsync({
+            imports: [ConfigModule],
             useFactory: async (configService: ConfigService) => {
+                const instance = await MongoMemoryServer.create();
+                const uri = instance.getUri();
+                process.env.MONGODB_TEST_URI = uri.slice(0, uri.lastIndexOf('/'));
                 return {
-                    uri: process.env.MONGODB_URI,
+                    uri: process.env.MONGODB_TEST_URI
                 }
             },
             inject: [ConfigService],
@@ -20,4 +25,4 @@ import { ConfigService } from "@nestjs/config";
         DatabaseSeeder,
     ]
 })
-export class DatabaseModule {}
+export class DatabaseTestingModule {}

@@ -37,7 +37,7 @@ you can execute any command inside docker container from outside use below comma
 docker exec -it CONTAINER_NAME_OR_ID bash -c "npm install ; npm test ; "
 
 ```bash
-docker exec -it nestjs sh -c "npm install ; npm test ; "
+docker exec -it nestjs sh -c "npm install ; npm run test:e2e ; "
 ```
 
 #### You also can execute below commands but it will serve from your local setup not from docker (not recommended)
