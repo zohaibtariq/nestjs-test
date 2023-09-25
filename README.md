@@ -62,7 +62,7 @@ npm run test
 
 
 
-#### You can also watch command.md file for some other helpful command
+#### You can also watch `command.md` file for some other helpful command
 
 ## Stay in touch
 
