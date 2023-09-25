@@ -8,16 +8,36 @@ sudo lsof -i :3000
 kill -9 PID
 ```
 
-###### DOCKER NESTJS CONTAINER
+[//]: # (###### DOCKER NESTJS CONTAINER)
 
-navigate to nestjs docker container
+[//]: # ()
+[//]: # (navigate to nestjs docker container)
+
+[//]: # (```bash)
+
+[//]: # (docker exec -it nestjs sh)
+
+[//]: # (```)
+
+[//]: # ()
+[//]: # (watch logs of nestjs docker container)
+
+[//]: # (```bash)
+
+[//]: # (docker logs -f nestjs)
+
+[//]: # (```)
+
+###### DOCKER MONGO CONTAINER
+
+navigate to mongo docker container
 ```bash
-docker exec -it nestjs sh
+docker exec -it mongo sh
 ```
 
-watch logs of nestjs docker container
+watch logs of mongo docker container
 ```bash
-docker logs -f nestjs
+docker logs -f mongo
 ```
 
 ###### DOCKER ELASTICSEARCH CONTAINER
@@ -32,13 +52,13 @@ watch logs of elasticsearch docker container
 docker logs -f elasticsearch
 ```
 
-###### CREATE RESOURCE
+###### CREATE NEW RESOURCE
 
 ```bash
-cd src && nest g resource
+cd src && nest g resource RESOURCE_NAME
 ```
 
-###### GENERATE TOKENS
+###### GENERATE TOKENS (ACCESS SECRET | REFRESH SECRET)
 
 ```bash
 node -e "console.log(require('crypto').randomBytes(256).toString('base64'));"

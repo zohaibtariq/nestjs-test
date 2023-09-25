@@ -54,11 +54,15 @@ npm run test:e2e
 npm run test
 ```
 
-##### .env file and some images with task detail has been shared over email, while postman collection is attached below.
+##### .env file and some images with task detail has been shared over email, while postman collection is attached below. for elasticsearch please execute in sequence of (1,2,3,4,5) create index, create docs, search, delete index
 
 ## Postman Collection
 
 ****[POSTMAN COLLECTION FILE (Avrioc.postman_collection.json)](https://github.com/zohaibtariq/nestjs-test/blob/development/Avrioc.postman_collection.json)****
+
+
+
+#### You can also watch command.md file for some other helpful command
 
 ## Stay in touch
 
