@@ -58,8 +58,7 @@ npm run test
 
 ## Postman Collection
 
-****[POSTMAN COLLECTION FILE (Avrioc.postman_collection.json)](https://github.com/zohaibtariq/swapi.dev/blob/development/Avrioc.postman_collection.json)****
-
+****[POSTMAN COLLECTION FILE (Avrioc.postman_collection.json)](https://github.com/zohaibtariq/nestjs-test/blob/development/Avrioc.postman_collection.json)****
 
 ## Stay in touch
 
