@@ -27,11 +27,11 @@ docker compose build
 docker compose up -d
 ```
 
-This command must show nest
+This command will only show mongo and elasticsearch container (No nestjs container you have to execute it locally)
 ```bash
 docker ps
 ```
-at that time you mongodba and elasticsearch container must executed with success
+
 
 #### Run Nest JS (Locally)
 
