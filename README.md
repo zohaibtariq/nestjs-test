@@ -46,6 +46,12 @@ docker exec -it nestjs sh -c "npm install ; npm run test:e2e ; "
 npm install
 ```
 
+
+## Postman Collection
+
+
+****[POSTMAN COLLECTION FILE (Avrioc.postman_collection.json)](https://github.com/zohaibtariq/swapi.dev/blob/development/Avrioc.postman_collection.json)****
+
 ## Running the app
 
 ```bash

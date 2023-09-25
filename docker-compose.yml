@@ -25,18 +25,6 @@ services:
     command: >
       elasticsearch
       -E xpack.security.enabled=false
-  nestjs:
-    container_name: nestjs
-    build:
-      context: .
-      dockerfile: Dockerfile
-    restart: unless-stopped
-    ports:
-      - '3000:3000'
-    depends_on:
-      - mongodb
-      - elasticsearch
-
 volumes:
   mongodata:
   esdata:
