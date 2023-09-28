@@ -1,0 +1,1520 @@
+{
+	"info": {
+		"_postman_id": "ee35157c-3447-46fc-a12c-8bd94c797db6",
+		"name": "Avrioc",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7973098",
+		"_collection_link": "https://restless-crescent-348583.postman.co/workspace/Awais-Alliance-Drive-Way-Work-S~318e1f44-d844-48ed-ae2a-fabcf3198efb/collection/7973098-ee35157c-3447-46fc-a12c-8bd94c797db6?action=share&source=collection_link&creator=7973098"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/users",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/users/{{USER_ID}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"users",
+								"{{USER_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Updated Display Name\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/users/65104c5c2e846ac78be36dd5",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"users",
+								"65104c5c2e846ac78be36dd5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/users/{{USER_ID}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"users",
+								"{{USER_ID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "refresh",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var responseBody = pm.response.json();",
+									"",
+									"if(responseBody.hasOwnProperty('accessToken')){",
+									"    pm.environment.set(\"ACCESS_TOKEN\", responseBody.accessToken);",
+									"    pm.globals.set(\"ACCESS_TOKEN\", responseBody.accessToken);",
+									"    pm.collectionVariables.set(\"ACCESS_TOKEN\", responseBody.accessToken);",
+									"}",
+									"",
+									"if(responseBody.hasOwnProperty('refreshToken')){",
+									"    pm.environment.set(\"REFRESH_TOKEN\", responseBody.refreshToken);",
+									"    pm.globals.set(\"REFRESH_TOKEN\", responseBody.refreshToken);",
+									"    pm.collectionVariables.set(\"REFRESH_TOKEN\", responseBody.refreshToken);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{REFRESH_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/auth/refresh",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"auth",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/auth/logout",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "signup",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var responseBody = pm.response.json();",
+									"",
+									"if(responseBody.hasOwnProperty('accessToken')){",
+									"    pm.environment.set(\"ACCESS_TOKEN\", responseBody.accessToken);",
+									"    pm.globals.set(\"ACCESS_TOKEN\", responseBody.accessToken);",
+									"    pm.collectionVariables.set(\"ACCESS_TOKEN\", responseBody.accessToken);",
+									"}",
+									"",
+									"if(responseBody.hasOwnProperty('refreshToken')){",
+									"    pm.environment.set(\"REFRESH_TOKEN\", responseBody.refreshToken);",
+									"    pm.globals.set(\"REFRESH_TOKEN\", responseBody.refreshToken);",
+									"    pm.collectionVariables.set(\"REFRESH_TOKEN\", responseBody.refreshToken);",
+									"}",
+									"",
+									"if(responseBody.hasOwnProperty('userId')){",
+									"    pm.environment.set(\"USER_ID\", responseBody.userId);",
+									"    pm.globals.set(\"USER_ID\", responseBody.userId);",
+									"    pm.collectionVariables.set(\"USER_ID\", responseBody.userId);",
+									"}",
+									"",
+									"",
+									"if(responseBody.hasOwnProperty('username')){",
+									"    pm.environment.set(\"SIGNEDUP_USER_USERNAME\", responseBody.username);",
+									"    pm.globals.set(\"SIGNEDUP_USER_USERNAME\", responseBody.username);",
+									"    pm.collectionVariables.set(\"SIGNEDUP_USER_USERNAME\", responseBody.username);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"{{USER_NAME}}\",\n\t\"username\": \"{{USER_USERNAME}}\",\n\t\"password\": \"{{USER_PASSWORD}}\" //\"hellopass\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/auth/signup",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "signin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var responseBody = pm.response.json();",
+									"",
+									"if(responseBody.hasOwnProperty('accessToken')){",
+									"    pm.environment.set(\"ACCESS_TOKEN\", responseBody.accessToken);",
+									"    pm.globals.set(\"ACCESS_TOKEN\", responseBody.accessToken);",
+									"    pm.collectionVariables.set(\"ACCESS_TOKEN\", responseBody.accessToken);",
+									"}",
+									"",
+									"if(responseBody.hasOwnProperty('refreshToken')){",
+									"    pm.environment.set(\"REFRESH_TOKEN\", responseBody.refreshToken);",
+									"    pm.globals.set(\"REFRESH_TOKEN\", responseBody.refreshToken);",
+									"    pm.collectionVariables.set(\"REFRESH_TOKEN\", responseBody.refreshToken);",
+									"}",
+									"",
+									"if(responseBody.hasOwnProperty('userId')){",
+									"    pm.environment.set(\"USER_ID\", responseBody.userId);",
+									"    pm.globals.set(\"USER_ID\", responseBody.userId);",
+									"    pm.collectionVariables.set(\"USER_ID\", responseBody.userId);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"{{SIGNEDUP_USER_USERNAME}}\",\n    \"password\": \"{{USER_PASSWORD}}\" //\"hellopass\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/auth/signin",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"auth",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "countries",
+			"item": [
+				{
+					"name": "countries",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/countries",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"countries"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "country",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/countries/{{COUNTRY_ID}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"countries",
+								"{{COUNTRY_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "country",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var responseBody = pm.response.json();",
+									"if(responseBody.hasOwnProperty('_id')){",
+									"    pm.environment.set(\"COUNTRY_ID\", responseBody._id);",
+									"    pm.globals.set(\"COUNTRY_ID\", responseBody._id);",
+									"    pm.collectionVariables.set(\"COUNTRY_ID\", responseBody._id);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{COUNTRY_NAME}}\",\n    \"iso\": \"{{COUNTRY_CODE}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/countries",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"countries"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "country",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{COUNTRY_NAME}}\",\n    \"iso\": \"{{COUNTRY_CODE}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/countries/{{COUNTRY_ID}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"countries",
+								"{{COUNTRY_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "country",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/countries/{{COUNTRY_ID}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"countries",
+								"{{COUNTRY_ID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "films",
+			"item": [
+				{
+					"name": "films",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/films",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"films"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "film",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/films/{{FILM_ID}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"films",
+								"{{FILM_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "films",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var responseBody = pm.response.json();",
+									"if(responseBody.hasOwnProperty('id')){",
+									"    pm.environment.set(\"FILM_ID\", responseBody.id);",
+									"    pm.globals.set(\"FILM_ID\", responseBody.id);",
+									"    pm.collectionVariables.set(\"FILM_ID\", responseBody.id);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{FILM_NAME}}\",\n    \"description\": \"{{FILM_DESC}}\",\n    \"releaseDate\": \"{{FILM_RELEASE_DATE}}\",\n    \"ticketPrice\": {{FILM_TICKET_PRICE}},\n    \"genre\": {{FILM_GENRE}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/films",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"films"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "films rating",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// var responseBody = pm.response.json();",
+									"// if(responseBody.hasOwnProperty('id')){",
+									"//     pm.environment.set(\"FILM_ID\", responseBody.id);",
+									"//     pm.globals.set(\"FILM_ID\", responseBody.id);",
+									"//     pm.collectionVariables.set(\"FILM_ID\", responseBody.id);",
+									"// }"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"rating\": 4,\n    \"comment\": \"comment over film rating\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/films/{{FILM_ID}}/rating",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"films",
+								"{{FILM_ID}}",
+								"rating"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "film",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{FILM_NAME}}\",\n    \"description\": \"{{FILM_DESC}}\",\n    \"releaseDate\": \"{{FILM_RELEASE_DATE}}\",\n    \"ticketPrice\": {{FILM_TICKET_PRICE}},\n    \"genre\": {{FILM_GENRE}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/films/{{FILM_ID}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"films",
+								"{{FILM_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "film",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/films/{{FILM_ID}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"films",
+								"{{FILM_ID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "elasticsearch",
+			"item": [
+				{
+					"name": "boost",
+					"item": [
+						{
+							"name": "1 - boost create index",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"index\": \"films_boost\",\n  \"settings\": {\n    \"analysis\": {\n      \"analyzer\": {\n        \"custom_analyzer\": {\n          \"type\": \"custom\",\n          \"tokenizer\": \"standard\",\n          \"filter\": [\"lowercase\"]\n        }\n      }\n    }\n  },\n  \"mappings\": {\n    \"properties\": {\n      \"name\": {\n        \"type\": \"text\",\n        \"analyzer\": \"custom_analyzer\"\n      },\n      \"description\": {\n        \"type\": \"text\",\n        \"analyzer\": \"custom_analyzer\"\n      },\n      \"genre\": {\n        \"type\": \"text\",\n        \"analyzer\": \"custom_analyzer\"\n      },\n      \"releaseDate\": {\n        \"type\": \"date\"\n      },\n      \"ticketPrice\": {\n        \"type\": \"integer\"\n      },\n      \"rating\": {\n        \"type\": \"integer\"\n      }\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/search/create-index",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"search",
+										"create-index"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2 - boost create document 1",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Black Smith history\",\n    \"description\": \"Learning earning is the key to success\",\n    \"releaseDate\": \"2023-09-24T00:32:45.820Z\",\n    \"ticketPrice\": 30,\n    \"genre\": [\n        \"Romance\",\n        \"War\",\n        \"Crime\"\n    ],\n    \"rating\": 4,\n    \"created\": \"2023-09-24T00:32:45.844Z\",\n    \"updated\": \"2023-09-24T00:32:45.844Z\",\n    \"id\": \"650f83ade514035d42de4a5a\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/search/create-document/films_boost/650f83ade514035d42de4a5a",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"search",
+										"create-document",
+										"films_boost",
+										"650f83ade514035d42de4a5a"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3 - boost create document 2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Wonder Women\",\n    \"description\": \"Save humans who are in trouble with some\",\n    \"releaseDate\": \"2023-09-24T00:32:59.719Z\",\n    \"ticketPrice\": 10,\n    \"genre\": [\n        \"Adventure\",\n        \"History\",\n        \"Sport\"\n    ],\n    \"rating\": 5,\n    \"created\": \"2023-09-24T00:32:59.739Z\",\n    \"updated\": \"2023-09-24T00:32:59.739Z\",\n    \"id\": \"650f83bbe514035d42de4a5d\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/search/create-document/films_boost/650f83bbe514035d42de4a5d",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"search",
+										"create-document",
+										"films_boost",
+										"650f83bbe514035d42de4a5d"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "4 - boost create document 3",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"King in the RING\",\n    \"description\": \"WWE is most fascinated history fight\",\n    \"releaseDate\": \"2023-09-24T00:33:06.422Z\",\n    \"ticketPrice\": 50,\n    \"genre\": [\n        \"Sport\",\n        \"Romance\",\n        \"Adventure\"\n    ],\n    \"rating\": 3,\n    \"created\": \"2023-09-24T00:33:06.439Z\",\n    \"updated\": \"2023-09-24T00:33:06.439Z\",\n    \"id\": \"650f83c2e514035d42de4a60\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/search/create-document/films_boost/650f83c2e514035d42de4a60",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"search",
+										"create-document",
+										"films_boost",
+										"650f83c2e514035d42de4a60"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "5 - boost search documents",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"index\": \"films_boost\",\n  \"query\": {\n    \"bool\": {\n      \"should\": [\n        {\n          \"match\": {\n            \"genre\": {\n              \"query\": \"{{BOOST_SEARCH_QUERY}}\",\n              \"boost\": 5\n            }\n          }\n        },\n        {\n          \"match\": {\n            \"name\": {\n              \"query\": \"{{BOOST_SEARCH_QUERY}}\",\n              \"boost\": 3\n            }\n          }\n        },\n        {\n          \"match\": {\n            \"description\": {\n              \"query\": \"{{BOOST_SEARCH_QUERY}}\",\n              \"boost\": 1\n            }\n          }\n        }\n      ]\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/search",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "6 - boost delete index",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"index\": \"films_boost\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/search/delete-index",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"search",
+										"delete-index"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "autocomplete",
+					"item": [
+						{
+							"name": "1 - autocomplete create index",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"index\": \"films_auto_complete\",\n  \"settings\": {\n    \"analysis\": {\n      \"analyzer\": {\n        \"autocomplete_analyzer\": {\n          \"type\": \"custom\",\n          \"tokenizer\": \"autocomplete_tokenizer\",\n          \"filter\": [\"lowercase\"]\n        }\n      },\n      \"tokenizer\": {\n        \"autocomplete_tokenizer\": {\n          \"type\": \"edge_ngram\",\n          \"min_gram\": 1,\n          \"max_gram\": 100,\n          \"token_chars\": [\"letter\", \"digit\"]\n        }\n      }\n    }\n  },\n  \"mappings\": {\n    \"properties\": {\n      \"name\": {\n        \"type\": \"text\",\n        \"analyzer\": \"autocomplete_analyzer\",\n        \"search_analyzer\": \"standard\"\n      },\n      \"description\": {\n        \"type\": \"text\",\n        \"analyzer\": \"autocomplete_analyzer\",\n        \"search_analyzer\": \"standard\"\n      },\n      \"genre\": {\n        \"type\": \"text\",\n        \"analyzer\": \"autocomplete_analyzer\",\n        \"search_analyzer\": \"standard\"\n      }\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/search/create-index",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"search",
+										"create-index"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2 - autocomplete create document 1",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Black Smith\",\n    \"description\": \"Learning earning is the key to success\",\n    \"releaseDate\": \"2023-09-24T00:32:45.820Z\",\n    \"ticketPrice\": 30,\n    \"genre\": [\n        \"Romance\",\n        \"War\",\n        \"Crime\"\n    ],\n    \"rating\": 4,\n    \"created\": \"2023-09-24T00:32:45.844Z\",\n    \"updated\": \"2023-09-24T00:32:45.844Z\",\n    \"id\": \"650f83ade514035d42de4a5a\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/search/create-document/films_auto_complete/650f83ade514035d42de4a5a",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"search",
+										"create-document",
+										"films_auto_complete",
+										"650f83ade514035d42de4a5a"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3 - autocomplete create document 2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Wonder Women\",\n    \"description\": \"Save humans who are in trouble\",\n    \"releaseDate\": \"2023-09-24T00:32:59.719Z\",\n    \"ticketPrice\": 10,\n    \"genre\": [\n        \"Adventure\",\n        \"History\",\n        \"Sport\"\n    ],\n    \"rating\": 5,\n    \"created\": \"2023-09-24T00:32:59.739Z\",\n    \"updated\": \"2023-09-24T00:32:59.739Z\",\n    \"id\": \"650f83bbe514035d42de4a5d\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/search/create-document/films_auto_complete/650f83bbe514035d42de4a5d",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"search",
+										"create-document",
+										"films_auto_complete",
+										"650f83bbe514035d42de4a5d"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "4 - autocomplete create document 3",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"King in the RING\",\n    \"description\": \"WWE most fascinated stars fight\",\n    \"releaseDate\": \"2023-09-24T00:33:06.422Z\",\n    \"ticketPrice\": 50,\n    \"genre\": [\n        \"Sport\",\n        \"Romance\",\n        \"Adventure\"\n    ],\n    \"rating\": 3,\n    \"created\": \"2023-09-24T00:33:06.439Z\",\n    \"updated\": \"2023-09-24T00:33:06.439Z\",\n    \"id\": \"650f83c2e514035d42de4a60\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/search/create-document/films_auto_complete/650f83c2e514035d42de4a60",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"search",
+										"create-document",
+										"films_auto_complete",
+										"650f83c2e514035d42de4a60"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "5 - autocomplete search documents",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"index\": \"films_auto_complete\",\n  \"query\": {\n    \"match_phrase_prefix\": {\n      \"name\": \"Kin\"\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/search",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "6 - autocomplete delete index",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"index\": \"films_auto_complete\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/search/delete-index",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"search",
+										"delete-index"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "stop words",
+					"item": [
+						{
+							"name": "1 - stop words create index",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"index\": \"films_stop_words\",\n  \"settings\": {\n    \"analysis\": {\n      \"filter\": {\n        \"stop_filter\": {\n          \"type\": \"stop\",\n          \"stopwords\": [\"the\", \"a\", \"of\"]\n        }\n      },\n      \"analyzer\": {\n        \"stop_words_analyzer\": {\n          \"tokenizer\": \"standard\",\n          \"filter\": [\"lowercase\", \"stop_filter\"]\n        }\n      }\n    }\n  },\n  \"mappings\": {\n    \"properties\": {\n      \"name\": {\n        \"type\": \"text\",\n        \"analyzer\": \"stop_words_analyzer\"\n      },\n      \"description\": {\n        \"type\": \"text\",\n        \"analyzer\": \"stop_words_analyzer\"\n      },\n      \"genre\": {\n        \"type\": \"text\",\n        \"analyzer\": \"stop_words_analyzer\"\n      }\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/search/create-index",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"search",
+										"create-index"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2 - stop words create document 1",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Black Smith\",\n    \"description\": \"Learning earning is the key to success\",\n    \"releaseDate\": \"2023-09-24T00:32:45.820Z\",\n    \"ticketPrice\": 30,\n    \"genre\": [\n        \"Romance\",\n        \"War\",\n        \"Crime\"\n    ],\n    \"rating\": 4,\n    \"created\": \"2023-09-24T00:32:45.844Z\",\n    \"updated\": \"2023-09-24T00:32:45.844Z\",\n    \"id\": \"650f83ade514035d42de4a5a\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/search/create-document/films_stop_words/650f83ade514035d42de4a5a",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"search",
+										"create-document",
+										"films_stop_words",
+										"650f83ade514035d42de4a5a"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3 - stop words create document 2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Wonder Women\",\n    \"description\": \"Save humans who are in trouble\",\n    \"releaseDate\": \"2023-09-24T00:32:59.719Z\",\n    \"ticketPrice\": 10,\n    \"genre\": [\n        \"Adventure\",\n        \"History\",\n        \"Sport\"\n    ],\n    \"rating\": 5,\n    \"created\": \"2023-09-24T00:32:59.739Z\",\n    \"updated\": \"2023-09-24T00:32:59.739Z\",\n    \"id\": \"650f83bbe514035d42de4a5d\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/search/create-document/films_stop_words/650f83bbe514035d42de4a5d",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"search",
+										"create-document",
+										"films_stop_words",
+										"650f83bbe514035d42de4a5d"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "4 - stop words create document 3",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"King in the RING\",\n    \"description\": \"WWE most fascinated stars fight\",\n    \"releaseDate\": \"2023-09-24T00:33:06.422Z\",\n    \"ticketPrice\": 50,\n    \"genre\": [\n        \"Sport\",\n        \"Romance\",\n        \"Adventure\"\n    ],\n    \"rating\": 3,\n    \"created\": \"2023-09-24T00:33:06.439Z\",\n    \"updated\": \"2023-09-24T00:33:06.439Z\",\n    \"id\": \"650f83c2e514035d42de4a60\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/search/create-document/films_stop_words/650f83c2e514035d42de4a60",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"search",
+										"create-document",
+										"films_stop_words",
+										"650f83c2e514035d42de4a60"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "5 - stop words search documents",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"index\": \"films_stop_words\",\n  \"query\": {\n    \"bool\": {\n      \"should\": [\n        {\n          \"match\": {\n            \"name\": {\n              \"query\": \"{{STOP_WORDS_SEARCH_TERM}}\",\n              \"operator\": \"or\"\n            }\n          }\n        },\n        {\n          \"match\": {\n            \"description\": {\n              \"query\": \"{{STOP_WORDS_SEARCH_TERM}}\",\n              \"operator\": \"or\"\n            }\n          }\n        },\n        {\n          \"match\": {\n            \"genre\": {\n              \"query\": \"{{STOP_WORDS_SEARCH_TERM}}\",\n              \"operator\": \"or\"\n            }\n          }\n        }\n      ]\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/search",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "6 - stop words delete index",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"index\": \"films_stop_words\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/search/delete-index",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"search",
+										"delete-index"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "search",
+					"item": [
+						{
+							"name": "1 - search create index",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"index\": \"films\",\n  \"settings\": {\n    \"analysis\": {\n      \"filter\": {\n        \"stop_filter\": {\n          \"type\": \"stop\",\n          \"stopwords\": [\"the\", \"a\", \"of\"]\n        }\n      },\n      \"analyzer\": {\n        \"stop_words_analyzer\": {\n          \"tokenizer\": \"standard\",\n          \"filter\": [\"lowercase\", \"stop_filter\"]\n        }\n      }\n    }\n  },\n  \"mappings\": {\n    \"properties\": {\n      \"name\": {\n        \"type\": \"text\",\n        \"analyzer\": \"stop_words_analyzer\"\n      },\n      \"description\": {\n        \"type\": \"text\",\n        \"analyzer\": \"stop_words_analyzer\"\n      },\n      \"genre\": {\n        \"type\": \"text\",\n        \"analyzer\": \"stop_words_analyzer\"\n      }\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/search/create-index",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"search",
+										"create-index"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2 - search create document 1",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Black Smith\",\n    \"description\": \"Learning earning is the key to success\",\n    \"releaseDate\": \"2023-09-24T00:32:45.820Z\",\n    \"ticketPrice\": 30,\n    \"genre\": [\n        \"Romance\",\n        \"War\",\n        \"Crime\"\n    ],\n    \"rating\": 4,\n    \"created\": \"2023-09-24T00:32:45.844Z\",\n    \"updated\": \"2023-09-24T00:32:45.844Z\",\n    \"id\": \"650f83ade514035d42de4a5a\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/search/create-document/films/650f83ade514035d42de4a5a",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"search",
+										"create-document",
+										"films",
+										"650f83ade514035d42de4a5a"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3 - search create document 2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Wonder Women\",\n    \"description\": \"Save humans who are in trouble\",\n    \"releaseDate\": \"2023-09-24T00:32:59.719Z\",\n    \"ticketPrice\": 10,\n    \"genre\": [\n        \"Adventure\",\n        \"History\",\n        \"Sport\"\n    ],\n    \"rating\": 5,\n    \"created\": \"2023-09-24T00:32:59.739Z\",\n    \"updated\": \"2023-09-24T00:32:59.739Z\",\n    \"id\": \"650f83bbe514035d42de4a5d\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/search/create-document/films/650f83bbe514035d42de4a5d",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"search",
+										"create-document",
+										"films",
+										"650f83bbe514035d42de4a5d"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "4 - search create document 3",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"King in the RING\",\n    \"description\": \"WWE most fascinated stars fight\",\n    \"releaseDate\": \"2023-09-24T00:33:06.422Z\",\n    \"ticketPrice\": 50,\n    \"genre\": [\n        \"Sport\",\n        \"Romance\",\n        \"Adventure\"\n    ],\n    \"rating\": 3,\n    \"created\": \"2023-09-24T00:33:06.439Z\",\n    \"updated\": \"2023-09-24T00:33:06.439Z\",\n    \"id\": \"650f83c2e514035d42de4a60\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/search/create-document/films/650f83c2e514035d42de4a60",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"search",
+										"create-document",
+										"films",
+										"650f83c2e514035d42de4a60"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "5 - search documents",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"index\": \"films\",\n  \"query\": {\n    \"bool\": {\n      \"should\": [\n        {\n          \"fuzzy\": {\n            \"name\": {\n              \"value\": \"{{SEARCH_TERM}}\",\n              \"fuzziness\": \"AUTO\"\n            }\n          }\n        },\n        {\n          \"fuzzy\": {\n            \"description\": {\n              \"value\": \"{{SEARCH_TERM}}\",\n              \"fuzziness\": \"AUTO\"\n            }\n          }\n        },\n        {\n          \"fuzzy\": {\n            \"genre\": {\n              \"value\": \"{{SEARCH_TERM}}\",\n              \"fuzziness\": \"AUTO\"\n            }\n          }\n        },\n        {\n          \"wildcard\": {\n            \"name\": {\n              \"value\": \"*{{SEARCH_TERM}}*\"\n            }\n          }\n        },\n        {\n          \"wildcard\": {\n            \"description\": {\n              \"value\": \"*{{SEARCH_TERM}}*\"\n            }\n          }\n        },\n        {\n          \"wildcard\": {\n            \"genre\": {\n              \"value\": \"*{{SEARCH_TERM}}*\"\n            }\n          }\n        }\n      ]\n    }\n  }\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/search",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "6 - search delete index",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"index\": \"films\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/search/delete-index",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"search",
+										"delete-index"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{ACCESS_TOKEN}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// USER",
+					"const randomUserEmail = `randomUserEmail${Math.floor(Math.random() * 100000)}@example.com`;",
+					"const randomUserName = `randomUserName${Math.floor(Math.random() * 100000)}`;",
+					"const randomUserUserName = `randomUserUserName${Math.floor(Math.random() * 100000)}`;",
+					"//const randomUserPass = `randomUserPass${Math.floor(Math.random() * 100000)}`;",
+					"",
+					"setVar('USER_NAME', randomUserName);",
+					"setVar('USER_USERNAME', randomUserUserName);",
+					"setVar('USER_EMAIL', randomUserEmail);",
+					"setVar('USER_PASSWORD', \"hellopass\");",
+					"",
+					"// COUNTRY",
+					"const randomCountryName = `randomCountryName${Math.floor(Math.random() * 100000)}`.toUpperCase();",
+					"const randomCountryCode = `randomCountryCode${Math.floor(Math.random() * 100000)}`.toUpperCase();",
+					"",
+					"setVar('COUNTRY_NAME', randomCountryName);",
+					"setVar('COUNTRY_CODE', randomCountryCode);",
+					"",
+					"// FILM",
+					"const genres = ['Adventure', 'Horror', 'Romance', 'Family', 'Fantasy', 'Crime', 'Sport', 'Thriller', 'War', 'History'];",
+					"const randomFilmName = `An Awesome Movie : ${Math.floor(Math.random() * 100000)}`;",
+					"const randomFilmDesc = `Details Supernova An Awesome Acting By : ${Math.floor(Math.random() * 100000)}`;",
+					"const randomReleaseDate = new Date();",
+					"const randomFilmPrice = Math.floor(Math.random() * 100000);",
+					"const randomFilmGenre = JSON.stringify(getRandomUniqueGenres(genres, 3));",
+					"setVar('FILM_NAME', randomFilmName);",
+					"setVar('FILM_DESC', randomFilmDesc);",
+					"setVar('FILM_RELEASE_DATE', randomReleaseDate);",
+					"setVar('FILM_TICKET_PRICE', randomFilmPrice);",
+					"setVar('FILM_GENRE', randomFilmGenre);",
+					"",
+					"// STORING VARS",
+					"function setVar(key, value){",
+					"    pm.environment.set(key, value);",
+					"    pm.globals.set(key, value);",
+					"    pm.collectionVariables.set(key, value);",
+					"}",
+					"",
+					"function getRandomUniqueGenres(array, numElements) {",
+					"  if (numElements > array.length) {",
+					"    throw new Error(\"Number of unique elements exceeds array length\");",
+					"  }",
+					"",
+					"  const randomElements = [];",
+					"  while (randomElements.length < numElements) {",
+					"    const randomIndex = Math.floor(Math.random() * array.length);",
+					"    const randomElement = array[randomIndex];",
+					"",
+					"    // Check if the element is already in the result array",
+					"    if (!randomElements.includes(randomElement)) {",
+					"      randomElements.push(randomElement);",
+					"    }",
+					"  }",
+					"",
+					"  return randomElements;",
+					"}",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "domain",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "USERID",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "USER_ID",
+			"value": ""
+		},
+		{
+			"key": "COUNTRY_ID",
+			"value": ""
+		},
+		{
+			"key": "FILM_ID",
+			"value": ""
+		},
+		{
+			"key": "USER_NAME",
+			"value": ""
+		},
+		{
+			"key": "USER_EMAIL",
+			"value": ""
+		},
+		{
+			"key": "USER_PASSWORD",
+			"value": ""
+		},
+		{
+			"key": "COUNTRY_NAME",
+			"value": ""
+		},
+		{
+			"key": "COUNTRY_CODE",
+			"value": ""
+		},
+		{
+			"key": "FILM_NAME",
+			"value": ""
+		},
+		{
+			"key": "FILM_DESC",
+			"value": ""
+		},
+		{
+			"key": "FILM_RELEASE_DATE",
+			"value": ""
+		},
+		{
+			"key": "FILM_TICKET_PRICE",
+			"value": ""
+		},
+		{
+			"key": "FILM_GENRE",
+			"value": ""
+		},
+		{
+			"key": "USER_USERNAME",
+			"value": ""
+		},
+		{
+			"key": "ACCESS_TOKEN",
+			"value": ""
+		},
+		{
+			"key": "REFRESH_TOKEN",
+			"value": ""
+		},
+		{
+			"key": "SIGNEDUP_USER_USERNAME",
+			"value": ""
+		},
+		{
+			"key": "BOOST_SEARCH_QUERY",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "STOP_WORDS_SEARCH_TERM",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "SEARCH_TERM",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
